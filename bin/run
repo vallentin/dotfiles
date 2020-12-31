@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [ "$TERM_PROGRAM" == "vscode" ]; then
+    clear
+fi
+
+if [ -f run.sh ]; then
+    ./run.sh "$@"
+    exit
+fi
+
+features=()
+
+while [[ $# -gt 0 ]]; do
+    key="$1"
+
+    case $key in
+        r|release|--release)
+        release="--release"
+        shift
+        ;;
+
+        n|nightly|u|unstable)
+        nightly="+nightly"
+        features+=("unstable")
+        shift
+        ;;
+        +nightly)
+        nightly="+nightly"
+        shift
+        ;;
+
+        --example)
+        shift
+        example="$1"
+        shift
+        ;;
+
+        b|backtrace)
+        export RUST_BACKTRACE=1
+        shift
+        ;;
+
+        --)
+        shift
+        break
+        ;;
+
+        *)
+        echo "Error: Unexpected argument '$key'"
+        exit 1
+        ;;
+    esac
+done
+
+if [[ ${features[@]} ]]; then
+    features=$(IFS=,; echo "${features[*]}")
+    features="--features $features"
+fi
+
+if [ ! -z "$example" ]; then
+    example="--example $example"
+fi
+
+set +e
+
+cargo $nightly run $features $release $example -- "$@"
+
+exit_code=$?
+
+# if cargo run failed
+if [ $exit_code -ne 0 ]; then
+    # and the shell level is <=1
+    if [ $SHLVL -le 1 ]; then
+        # then wait for input before exiting
+        read -p "Press enter to exit"
+    fi
+
+    exit $exit_code
+fi
