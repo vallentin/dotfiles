@@ -48,4 +48,8 @@ if [[ ${deny[@]} ]]; then
     deny=$(printf -- "-D %s " "${deny[@]}")
 fi
 
+# Issue: https://github.com/rust-lang/rust-clippy/issues/4612
+# find -name "*.rs" -exec touch "{}" +
+find -name "*.rs" -not -path "./target/*" -exec touch "{}" +
+
 cargo clippy --all-targets -- $deny
