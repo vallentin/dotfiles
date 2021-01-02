@@ -6,4 +6,46 @@ if [ "$TERM_PROGRAM" == "vscode" ]; then
     clear
 fi
 
-cargo clippy --all-targets
+deny=()
+
+while [[ $# -gt 0 ]]; do
+    lint="$1"
+
+    case $lint in
+        p|pedantic)
+        shift
+        deny+=("clippy::pedantic")
+        ;;
+
+        n|nursery)
+        shift
+        deny+=("clippy::nursery")
+        ;;
+
+        c|cargo)
+        shift
+        deny+=("clippy::cargo")
+        ;;
+
+        +)
+        shift
+        deny+=("clippy::pedantic" "clippy::nursery")
+        ;;
+
+        --)
+        shift
+        break
+        ;;
+
+        *)
+        deny+=("$lint")
+        shift
+        ;;
+    esac
+done
+
+if [[ ${deny[@]} ]]; then
+    deny=$(printf -- "-D %s " "${deny[@]}")
+fi
+
+cargo clippy --all-targets -- $deny
