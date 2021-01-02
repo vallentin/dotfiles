@@ -1,10 +1,7 @@
 #!/usr/bin/env bash
 
 set -e
-
-if [ "$TERM_PROGRAM" == "vscode" ]; then
-    clear
-fi
+vscode-clear
 
 if [ -f run.sh ]; then
     ./run.sh "$@"

@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 
 set -e
-
-if [ "$TERM_PROGRAM" == "vscode" ]; then
-    clear
-fi
+vscode-clear
 
 cargo fmt --all -- --check
