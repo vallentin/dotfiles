@@ -3,14 +3,19 @@
 set -e
 vscode-clear
 
-git stash
-# git stash --include-untracked
+old=$(git rev-parse --quiet --verify refs/stash || true)
 
-set +e
+git stash --quiet
+# git stash --include-untracked --quiet
+
+new=$(git rev-parse --quiet --verify refs/stash)
 
 end() {
     set -e
-    git stash pop --quiet
+
+    if [ "$old" != "$new" ]; then
+        git stash pop --quiet
+    fi
 }
 
 try() {
@@ -23,6 +28,8 @@ try() {
         exit $exit_code
     fi
 }
+
+set +e
 
 try cargo test
 try cargo clippy --all-targets
