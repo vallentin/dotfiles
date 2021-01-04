@@ -29,6 +29,12 @@ while [[ $# -gt 0 ]]; do
         deny+=("clippy::pedantic" "clippy::nursery")
         ;;
 
+        --features)
+        shift
+        features="$1"
+        shift
+        ;;
+
         --)
         shift
         break
@@ -45,8 +51,12 @@ if [[ ${deny[@]} ]]; then
     deny=$(printf -- "-D %s " "${deny[@]}")
 fi
 
+if [ ! -z "$features" ]; then
+    features="--features $features"
+fi
+
 # Issue: https://github.com/rust-lang/rust-clippy/issues/4612
 # find -name "*.rs" -exec touch "{}" +
 find -name "*.rs" -not -path "./target/*" -exec touch "{}" +
 
-cargo clippy --all-targets -- $deny
+cargo clippy --all-targets $features -- $deny
