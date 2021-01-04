@@ -3,6 +3,15 @@
 set -e
 vscode-clear
 
+if [[ $1 == "--features" ]]; then
+    shift
+    features="$1"
+fi
+
+if [ ! -z "$features" ]; then
+    features="--features $features"
+fi
+
 old=$(git rev-parse --quiet --verify refs/stash || true)
 
 git stash --quiet
@@ -31,8 +40,8 @@ try() {
 
 set +e
 
-try cargo test
-try cargo clippy --all-targets
+try cargo test $features
+try cargo clippy --all-targets $features
 try cargo fmt --all -- --check
 
 export RUSTFLAGS="-D warnings"
