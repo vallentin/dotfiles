@@ -30,6 +30,12 @@ while [[ $# -gt 0 ]]; do
         shift
         ;;
 
+        --features)
+        shift
+        features+=("$1")
+        shift
+        ;;
+
         --example)
         shift
         example="$1"
