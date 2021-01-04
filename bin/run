@@ -24,7 +24,8 @@ while [[ $# -gt 0 ]]; do
         features+=("unstable")
         shift
         ;;
-        +nightly)
+
+        +|+n|+nightly)
         nightly="+nightly"
         shift
         ;;
