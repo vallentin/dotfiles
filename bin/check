@@ -19,10 +19,15 @@ git stash --quiet
 
 new=$(git rev-parse --quiet --verify refs/stash)
 
+if [ "$old" != "$new" ]; then
+    echo "$ git stash --quiet"
+fi
+
 end() {
     set -e
 
     if [ "$old" != "$new" ]; then
+        echo "$ git stash pop --quiet"
         git stash pop --quiet
     fi
 }
