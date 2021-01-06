@@ -21,6 +21,8 @@ new=$(git rev-parse --quiet --verify refs/stash)
 
 if [ "$old" != "$new" ]; then
     echo "$ git stash --quiet"
+
+    trap end INT
 fi
 
 end() {
