@@ -6,3 +6,6 @@ dirname=$(cd "$(dirname "${BASH_SOURCE[0]}")"; pwd -P)
 cd "$dirname"
 
 cp -r bin ~
+
+files=$(ls bin)
+chmod +x $files
