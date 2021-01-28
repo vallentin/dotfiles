@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -e
+vscode-clear
+
+if [ -z "$1" ]; then
+    cargo test
+else
+    cargo test -- "$1" --nocapture
+fi
