@@ -8,4 +8,5 @@ cd "$dirname"
 cp -r bin ~
 
 files=$(ls bin)
+cd ~/bin
 chmod +x $files
