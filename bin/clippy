@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 set -e
-vscode-clear
+# vscode-clear
 
 deny=()
 
@@ -55,8 +55,4 @@ if [ ! -z "$features" ]; then
     features="--features $features"
 fi
 
-# Issue: https://github.com/rust-lang/rust-clippy/issues/4612
-# find -name "*.rs" -exec touch "{}" +
-find -name "*.rs" -not -path "./target/*" -exec touch "{}" +
-
-cargo clippy --all-targets $features -- $deny
+rs-clippy --all-targets $features -- $deny
