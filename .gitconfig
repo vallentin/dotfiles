@@ -1,0 +1,14 @@
+[credential]
+	helper = cache
+[user]
+	name = vallentin
+[commit]
+	gpgsign = true
+[core]
+	editor = code --wait
+[log]
+	date = format:%a %b %d %H:%M:%S %Y
+[format]
+	pretty = shortlog
+[pretty]
+	shortlog = format:%C(auto)%h %C(auto,green)%>(24,trunc)%ad %C(auto,bold blue)%<(9,trunc)%aN%C(auto,reset) %s%C(auto)%d
