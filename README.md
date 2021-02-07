@@ -1,6 +1,6 @@
 # dotfiles
 
-Just some dotfiles and related, which I use.
+Just some dotfiles and related stuff that I use.
 
 ## References
 
