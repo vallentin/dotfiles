@@ -2,4 +2,4 @@
 
 set -e
 
-rs-clippy --all-features -- -D clippy::all
+rs-clippy --all-features -- -W clippy::all

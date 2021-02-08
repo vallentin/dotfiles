@@ -3,7 +3,7 @@
 set -e
 # vscode-clear
 
-deny=()
+lints=()
 
 while [[ $# -gt 0 ]]; do
     lint="$1"
@@ -11,22 +11,22 @@ while [[ $# -gt 0 ]]; do
     case $lint in
         p|pedantic)
         shift
-        deny+=("clippy::pedantic")
+        lints+=("clippy::pedantic")
         ;;
 
         n|nursery)
         shift
-        deny+=("clippy::nursery")
+        lints+=("clippy::nursery")
         ;;
 
         c|cargo)
         shift
-        deny+=("clippy::cargo")
+        lints+=("clippy::cargo")
         ;;
 
         +)
         shift
-        deny+=("clippy::pedantic" "clippy::nursery")
+        lints+=("clippy::pedantic" "clippy::nursery")
         ;;
 
         --features)
@@ -41,18 +41,18 @@ while [[ $# -gt 0 ]]; do
         ;;
 
         *)
-        deny+=("$lint")
+        lints+=("$lint")
         shift
         ;;
     esac
 done
 
-if [[ ${deny[@]} ]]; then
-    deny=$(printf -- "-D %s " "${deny[@]}")
+if [[ ${lints[@]} ]]; then
+    lints=$(printf -- "-W %s " "${lints[@]}")
 fi
 
 if [ ! -z "$features" ]; then
     features="--features $features"
 fi
 
-rs-clippy --all-targets $features -- $deny
+rs-clippy --all-targets $features -- $lints
