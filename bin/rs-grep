@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-grep --color=auto --include=\*.rs --exclude-dir={.git,target,node_modules} -rinT . -e "$@"
