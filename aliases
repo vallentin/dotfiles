@@ -1,3 +1,9 @@
 #!/usr/bin/env bash
 
 alias rs-grep="grep --color=auto --include=\*.rs --exclude-dir={.git,target,node_modules} -rinT . -e"
+
+alias js-grep="grep --color=auto --include=\*.js --exclude-dir={.git,target,node_modules} -rinT . -e"
+alias ts-grep="grep --color=auto --include=\*.ts --exclude-dir={.git,target,node_modules} -rinT . -e"
+
+alias css-grep="grep --color=auto --include=\*.css --exclude-dir={.git,target,node_modules} -rinT . -e"
+alias scss-grep="grep --color=auto --include=\*.scss --exclude-dir={.git,target,node_modules} -rinT . -e"
