@@ -36,6 +36,12 @@ while [[ $# -gt 0 ]]; do
         shift
         ;;
 
+        --bin)
+        shift
+        bin="$1"
+        shift
+        ;;
+
         --example)
         shift
         example="$1"
@@ -64,13 +70,17 @@ if [[ ${features[@]} ]]; then
     features="--features $features"
 fi
 
+if [ ! -z "$bin" ]; then
+    bin="--bin $bin"
+fi
+
 if [ ! -z "$example" ]; then
     example="--example $example"
 fi
 
 set +e
 
-cargo $nightly run $features $release $example -- "$@"
+cargo $nightly run $features $release $bin $example -- "$@"
 
 exit_code=$?
 
