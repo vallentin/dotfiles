@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+set -e
+vscode-clear
+
+no_deps="--no-deps"
+
+while [[ $# -gt 0 ]]; do
+    key="$1"
+
+    case $key in
+        o|open|--open)
+        open="--open"
+        shift
+        ;;
+
+        d|deps)
+        no_deps=""
+        shift
+        ;;
+
+        p|priv)
+        priv="--document-private-items"
+        shift
+        ;;
+
+        --)
+        shift
+        break
+        ;;
+
+        *)
+        echo "Error: Unexpected argument '$key'"
+        exit 1
+        ;;
+    esac
+done
+
+# Issue: https://github.com/rust-lang/rust-clippy/issues/4612
+# find -name "*.rs" -exec touch "{}" +
+find -name "*.rs" -not -path "./target/*" -exec touch "{}" +
+
+cargo doc $no_deps $priv $open -- "$@"

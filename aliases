@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 alias run="rs-run"
+alias doc="rs-doc"
 
 alias rs-grep="grep --color=auto --include=\*.rs --exclude-dir={.git,target,node_modules} -rinT . -e"
 
