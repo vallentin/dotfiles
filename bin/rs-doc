@@ -36,8 +36,5 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-# Issue: https://github.com/rust-lang/rust-clippy/issues/4612
-# find -name "*.rs" -exec touch "{}" +
-find -name "*.rs" -not -path "./target/*" -exec touch "{}" +
-
+rs-touch
 cargo doc $no_deps $priv $open -- "$@"

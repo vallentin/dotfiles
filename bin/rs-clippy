@@ -3,8 +3,5 @@
 set -e
 vscode-clear
 
-# Issue: https://github.com/rust-lang/rust-clippy/issues/4612
-# find -name "*.rs" -exec touch "{}" +
-find -name "*.rs" -not -path "./target/*" -exec touch "{}" +
-
+rs-touch
 cargo clippy "$@"
