@@ -48,7 +48,10 @@ try() {
 set +e
 
 try cargo test $features
+
+try rs-touch
 try cargo clippy --all-targets $features
+
 try cargo fmt --all -- --check
 
 export RUSTFLAGS="-D warnings"
