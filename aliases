@@ -3,6 +3,8 @@
 alias run="rs-run"
 alias doc="rs-doc"
 
+alias cargo-new-week="cargo new $(date +y%yw%V)"
+
 alias rs-grep="grep --color=auto --include=\*.rs --exclude-dir={.git,target,node_modules} -rinT . -e"
 
 alias js-grep="grep --color=auto --include=\*.js --exclude-dir={.git,target,node_modules} -rinT . -e"
