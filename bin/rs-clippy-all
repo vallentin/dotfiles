@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-set -e
-
-rs-clippy --all-features -- -W clippy::all

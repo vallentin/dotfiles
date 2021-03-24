@@ -3,6 +3,8 @@
 alias run="rs-run"
 alias doc="rs-doc"
 
+alias rs-clippy-all="rs-clippy --all-targets --all-features -- -W clippy::all"
+
 alias cargo-new-week="cargo new $(date +y%yw%V)"
 
 alias rs-grep="grep --color=auto --include=\*.rs --exclude-dir={.git,target,node_modules} -rinT . -e"
