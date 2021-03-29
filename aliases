@@ -7,6 +7,8 @@ alias rs-clippy-all="rs-clippy --all-targets --all-features -- -W clippy::all"
 
 alias cargo-new-week="cargo new $(date +y%yw%V)"
 
+alias git-hard-reset-file="git checkout HEAD --"
+
 alias rs-grep="grep --color=auto --include=\*.rs --exclude-dir={.git,target,node_modules} -rinT . -e"
 
 alias js-grep="grep --color=auto --include=\*.js --exclude-dir={.git,target,node_modules} -rinT . -e"
