@@ -16,3 +16,5 @@ alias ts-grep="grep --color=auto --include=\*.ts --exclude-dir={.git,target,node
 
 alias css-grep="grep --color=auto --include=\*.css --exclude-dir={.git,target,node_modules} -rinT . -e"
 alias scss-grep="grep --color=auto --include=\*.scss --exclude-dir={.git,target,node_modules} -rinT . -e"
+
+alias vscode-edit-dictionary="code $HOME/dictionary.txt"
