@@ -11,6 +11,9 @@ alias cargo-new-week="cargo new $(date +y%yw%V)"
 
 alias git-hard-reset-file="git checkout HEAD --"
 
+alias git-diff-word="git diff --color-words"
+alias git-diff-char="git diff --color-words=."
+
 alias rs-grep="grep --color=auto --include=\*.rs --exclude-dir={.git,target,node_modules} -rinT . -e"
 
 alias js-grep="grep --color=auto --include=\*.js --exclude-dir={.git,target,node_modules} -rinT . -e"
