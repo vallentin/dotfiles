@@ -14,6 +14,9 @@ alias git-clone-shallow="git clone --depth=1"
 alias git-pop-head-keep-staged="git reset --soft HEAD~"
 alias git-hard-reset-file="git checkout HEAD --"
 
+alias git-diff-word="git diff --color-words"
+alias git-diff-char="git diff --color-words=."
+
 git-hard-reset-branch-to-origin() {(
     set -e
 
@@ -23,8 +26,60 @@ git-hard-reset-branch-to-origin() {(
     git reset --hard origin/"$branch"
 )}
 
-alias git-diff-word="git diff --color-words"
-alias git-diff-char="git diff --color-words=."
+git-delete-merged-branches() {(
+    set -e
+
+    if [[ ! -v "NO_COLOR" ]]; then
+        ResetCol='\e[0m'
+        HelpCol='\e[1;31m'
+        PromptCol='\e[1;34m'
+    fi
+
+    branches=$(git branch --merged | egrep -v "(^\*|master|main|dev)")
+    branch_count=$(echo -n "$branches" | grep -c "^")
+
+    help="\
+y | yes  - delete branch
+n | no   - skip branch
+q | quit - skip remaining branches and quit
+s | show - show latest commit in branch"
+
+    i=1
+    while [ $i -le $branch_count ]; do
+        branch=$(sed "${i}q;d" <<< "$branches" | sed -e 's/^\s*//' -e '/^$/d' )
+
+        echo "Branch: \`$branch\`"
+
+        echo -e -n "${PromptCol}($i/$branch_count) [y,n,q,s,?]: ${ResetCol}"
+        read -r
+
+        case "$REPLY" in
+            y|Y|yes|YES)
+            git branch -D "$branch"
+            ;;
+
+            n|N|no|NO)
+            ;;
+
+            q|Q|quit|QUIT)
+            break
+            ;;
+
+            s|S|show|SHOW)
+            commit=$(git rev-parse "$branch")
+            git show "$commit"
+            continue
+            ;;
+
+            *)
+            echo -e "${HelpCol}${help}${ResetCol}"
+            continue
+            ;;
+        esac
+
+        i=$(($i + 1))
+    done
+)}
 
 alias rs-grep="grep --color=auto --include=\*.rs --exclude-dir={.git,target,node_modules} -rinT . -e"
 
