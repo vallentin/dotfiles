@@ -17,6 +17,16 @@ alias git-hard-reset-file="git checkout HEAD --"
 alias git-diff-word="git diff --color-words"
 alias git-diff-char="git diff --color-words=."
 
+git-diff() {(
+    set -e
+
+    git diff "$@" -- . \
+        ':(exclude)Cargo.toml' \
+        ':(exclude)Cargo.lock' \
+        ':(exclude)package.json' \
+        ':(exclude)package-lock.json'
+)}
+
 git-hard-reset-branch-to-origin() {(
     set -e
 
