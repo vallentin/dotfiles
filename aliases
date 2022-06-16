@@ -3,6 +3,7 @@
 alias run="rs-run"
 alias doc="rs-doc"
 
+alias rs-test-lib="cargo test --lib --"
 alias rs-clippy-all="rs-clippy --all-targets --all-features -- -W clippy::all"
 
 alias rustfmt-check="rs-fmt-check"
