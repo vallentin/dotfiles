@@ -37,6 +37,14 @@ git-hard-reset-branch-to-origin() {(
     git reset --hard origin/"$branch"
 )}
 
+git-checkout-remote-branch() {(
+    set -e
+
+    branch=$1
+    shift
+    git checkout -t origin/"$branch" "$@"
+)}
+
 git-delete-merged-branches() {(
     set -e
 
