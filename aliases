@@ -15,6 +15,8 @@ alias git-clone-shallow="git clone --depth=1"
 alias git-pop-head-keep-staged="git reset --soft HEAD~"
 alias git-hard-reset-file="git checkout HEAD --"
 
+alias git-log-follow="git log --follow --"
+
 alias git-diff-word="git diff --color-words"
 alias git-diff-char="git diff --color-words=."
 
