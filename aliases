@@ -112,6 +112,14 @@ alias scss-grep="grep --color=auto --include=\*.scss --exclude-dir={.git,target,
 
 alias vscode-edit-dictionary="code $HOME/dictionary.txt"
 
+append-dictionary() {(
+    set -e
+
+    for word in "$@"; do
+        echo "$word" >> $HOME/dictionary.txt
+    done
+)}
+
 if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     note() {
         nohup gedit "$@" > /dev/null &
