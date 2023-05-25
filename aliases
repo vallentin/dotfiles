@@ -47,6 +47,16 @@ git-checkout-remote-branch() {(
     git checkout -t origin/"$branch" "$@"
 )}
 
+git-set-upstream() {(
+    set -e
+
+    origin=$(git remote get-url origin)
+
+    read -e -p "Upstream: " -i "$origin" upstream
+
+    git remote add upstream "$upstream"
+)}
+
 git-delete-merged-branches() {(
     set -e
 
