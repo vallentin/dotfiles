@@ -57,6 +57,13 @@ git-set-upstream() {(
     git remote add upstream "$upstream"
 )}
 
+git-pull-upstream() {(
+    set -e
+    git fetch upstream
+    git checkout master
+    git rebase upstream/master
+)}
+
 git-delete-merged-branches() {(
     set -e
 
