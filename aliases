@@ -10,6 +10,11 @@ alias rustfmt-check="rs-fmt-check"
 
 alias rs-doc-private="cargo doc --document-private-items"
 
+rs-doc-hidden() {(
+    set -e
+    RUSTDOCFLAGS='-Z unstable-options --document-hidden-items' cargo +nightly doc --document-private-items "$@"
+)}
+
 alias cargo-new-week="cargo new $(date +y%yw%V)"
 
 alias git-clone-shallow="git clone --depth=1"
