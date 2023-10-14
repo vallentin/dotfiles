@@ -19,6 +19,8 @@ alias cargo-new-week="cargo new $(date +y%yw%V)"
 
 alias git-clone-shallow="git clone --depth=1"
 
+alias git-stash-untracked="git stash --include-untracked"
+
 alias git-pop-head-keep-staged="git reset --soft HEAD~"
 alias git-hard-reset-file="git checkout HEAD --"
 
