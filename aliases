@@ -128,6 +128,8 @@ s | show - show latest commit in branch"
     done
 )}
 
+alias open-url="python -m webbrowser"
+
 alias rs-grep="grep --color=auto --include=\*.rs --exclude-dir={.git,target,node_modules} -rinT . -e"
 
 alias js-grep="grep --color=auto --include=\*.js --exclude-dir={.git,target,node_modules} -rinT . -e"
