@@ -23,6 +23,21 @@ crate-version() {(
     egrep -o "([0-9]{1,}\.)+[0-9]{1,}" --color=never <<< "${package_id}"
 )}
 
+git-tag-crate-version() {(
+    set -e
+
+    version=$(crate-version)
+    version="v${version}"
+
+    if git show-ref --tags "${version}" --quiet; then
+        echo Version tag already exists
+        exit 1
+    fi
+
+    echo "Tagging $version"
+    git tag "${version}"
+)}
+
 alias git-clone-shallow="git clone --depth=1"
 
 alias git-stash-untracked="git stash --include-untracked"
