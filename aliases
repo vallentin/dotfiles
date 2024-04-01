@@ -17,6 +17,12 @@ rs-doc-hidden() {(
 
 alias cargo-new-week="cargo new $(date +y%yw%V)"
 
+crate-version() {(
+    set -e
+    package_id=$(cargo pkgid --color never)
+    egrep -o "([0-9]{1,}\.)+[0-9]{1,}" --color=never <<< "${package_id}"
+)}
+
 alias git-clone-shallow="git clone --depth=1"
 
 alias git-stash-untracked="git stash --include-untracked"
