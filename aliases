@@ -73,6 +73,20 @@ git-pull-upstream() {(
     git rebase upstream/master
 )}
 
+git-open-remote() {(
+    set -e
+
+    url=$(git remote get-url origin)
+    open-url "${url}"
+)}
+
+git-open-upstream() {(
+    set -e
+
+    url=$(git remote get-url upstream)
+    open-url "${url}"
+)}
+
 git-delete-merged-branches() {(
     set -e
 
