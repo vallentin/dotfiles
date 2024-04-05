@@ -17,6 +17,11 @@ rs-doc-hidden() {(
 
 alias cargo-new-week="cargo new $(date +y%yw%V)"
 
+clean-proc-macro() {(
+    set -e
+    rm -v -f target/debug/deps/*macros* target/debug/deps/*derive*
+)}
+
 crate-version() {(
     set -e
     package_id=$(cargo pkgid --color never)
