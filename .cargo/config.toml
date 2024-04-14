@@ -1,2 +1,3 @@
 [alias]
+e = "expand"
 i = "install --path ."
