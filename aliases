@@ -43,6 +43,11 @@ git-tag-crate-version() {(
     git tag "${version}"
 )}
 
+git-push-all-tags() {(
+    set -e
+    git push origin --tags
+)}
+
 alias git-clone-shallow="git clone --depth=1"
 
 alias git-stash-untracked="git stash --include-untracked"
