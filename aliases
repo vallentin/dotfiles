@@ -12,6 +12,7 @@ alias rs-doc-private="cargo doc --document-private-items"
 
 rs-doc-hidden() {(
     set -e
+    local RUSTDOCFLAGS
     RUSTDOCFLAGS='-Z unstable-options --document-hidden-items' cargo +nightly doc --document-private-items "$@"
 )}
 
@@ -24,6 +25,7 @@ clean-proc-macro() {(
 
 crate-version() {(
     set -e
+    local package_id
     package_id=$(cargo pkgid --color never)
     egrep -o "([0-9]{1,}\.)+[0-9]{1,}" --color=never <<< "${package_id}"
 )}
@@ -31,6 +33,7 @@ crate-version() {(
 git-tag-crate-version() {(
     set -e
 
+    local version
     version=$(crate-version)
     version="v${version}"
 
@@ -73,6 +76,7 @@ git-diff() {(
 git-hard-reset-branch-to-origin() {(
     set -e
 
+    local branch
     branch=$(git branch --show-current)
 
     git fetch origin
@@ -82,14 +86,17 @@ git-hard-reset-branch-to-origin() {(
 git-checkout-remote-branch() {(
     set -e
 
+    local branch
     branch=$1
     shift
+
     git checkout -t origin/"$branch" "$@"
 )}
 
 git-set-upstream() {(
     set -e
 
+    local origin
     origin=$(git remote get-url origin)
 
     read -e -p "Upstream: " -i "$origin" upstream
@@ -106,14 +113,14 @@ git-pull-upstream() {(
 
 git-open-remote() {(
     set -e
-
+    local url
     url=$(git remote get-url origin)
     open-url "${url}"
 )}
 
 git-open-upstream() {(
     set -e
-
+    local url
     url=$(git remote get-url upstream)
     open-url "${url}"
 )}
