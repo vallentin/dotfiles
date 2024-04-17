@@ -104,6 +104,11 @@ git-set-upstream() {(
     git remote add upstream "$upstream"
 )}
 
+git-head-branch() {(
+    set -e
+    git branch --remotes --list '*/HEAD' --no-color | awk -F/ '{print $NF}' | grep --color="never" .
+)}
+
 git-pull-upstream() {(
     set -e
     git fetch upstream
