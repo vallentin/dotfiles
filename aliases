@@ -111,9 +111,13 @@ git-head-branch() {(
 
 git-pull-upstream() {(
     set -e
+
+    local branch
+    branch=$(git-head-branch)
+
     git fetch upstream
-    git checkout master
-    git rebase upstream/master
+    git checkout "${branch}"
+    git rebase upstream/"${branch}"
 )}
 
 git-open-remote() {(
