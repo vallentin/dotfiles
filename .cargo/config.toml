@@ -1,3 +1,4 @@
 [alias]
 e = "expand"
 i = "install --path ."
+rr = "run --release"
