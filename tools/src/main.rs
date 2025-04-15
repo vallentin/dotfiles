@@ -6,6 +6,8 @@
 )]
 #![warn(clippy::all)]
 
+mod utils;
+
 use std::error;
 use std::fs;
 use std::io::{self, Write};
@@ -85,6 +87,7 @@ fn install() -> Result<(), Box<dyn error::Error>> {
 
     for name in TOOLS.iter().map(|&(name, _)| name) {
         install_tool(name, &exe, bin_dir)?;
+        install_tool_debug(name, bin_dir)?;
     }
 
     Ok(())
@@ -93,16 +96,42 @@ fn install() -> Result<(), Box<dyn error::Error>> {
 fn install_tool(tool_name: &str, exe: &Path, bin_dir: &Path) -> Result<(), Box<dyn error::Error>> {
     let link = bin_dir.join(tool_name);
 
-    match fs::remove_file(&link) {
-        Ok(()) => {
-            println!("Removed    `{}`", link.display());
-        }
-        Err(err) if err.kind() == io::ErrorKind::NotFound => {}
-        Err(err) => return Err(err.into()),
+    if utils::try_remove_file(&link)? {
+        println!("Removed    `{}`", link.display());
     }
 
     println!("Installing `{}`", link.display());
     symlink(&exe, &link).unwrap();
+
+    Ok(())
+}
+
+fn install_tool_debug(tool_name: &str, bin_dir: &Path) -> Result<(), Box<dyn error::Error>> {
+    let manifest_path = Path::new(env!("CARGO_MANIFEST_DIR")).join("Cargo.toml");
+    let manifest_path = manifest_path.to_str().unwrap();
+    let manifest_path = shlex::try_quote(manifest_path).unwrap();
+
+    let sh = bin_dir.join(format!("_{tool_name}"));
+
+    if utils::try_remove_file(&sh)? {
+        println!("Removed    `{}`", sh.display());
+    }
+
+    let code = [
+        "#!/usr/bin/env bash",
+        "set -e",
+        #[cfg(debug_assertions)]
+        &format!("cargo build --manifest-path {manifest_path}"),
+        #[cfg(not(debug_assertions))]
+        &format!("cargo build --release --manifest-path {manifest_path}"),
+        &format!("{tool_name} \"$@\""),
+    ]
+    .join("\n");
+
+    println!("Installing `{}`", sh.display());
+    fs::write(&sh, code).unwrap();
+
+    utils::mark_executable(&sh)?;
 
     Ok(())
 }

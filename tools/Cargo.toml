@@ -5,3 +5,4 @@ edition = "2024"
 
 [dependencies]
 shellexpand = "3.1"
+shlex = "1.3"
