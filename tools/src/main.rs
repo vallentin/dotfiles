@@ -18,9 +18,9 @@ use std::os::unix::fs::symlink;
 
 const BIN_DIR: &str = "~/bin";
 
-#[rustfmt::skip]
 const TOOLS: &[(&str, fn() -> Result<(), Box<dyn error::Error>>)] = &[
     ("tools", run),
+    ("reinstall-tools", install),
     ("dummy", dummy),
 ];
 
