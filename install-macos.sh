@@ -24,6 +24,9 @@ else
     fi
 fi
 
+echo "Marking as executable..."
+find "$HOME/bin" -type f -print -exec chmod +x {} \;
+
 line='export PATH="$HOME/bin:$PATH"'
 if ! grep --quiet --fixed-strings --line-regexp "$line" "$rc"; then
     echo "Appending to \`$rc\`"
