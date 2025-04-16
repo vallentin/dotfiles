@@ -11,6 +11,8 @@ fi
 
 rc="$HOME/.zshrc"
 
+cargo run --manifest-path "tools/Cargo.toml" -- install
+
 if [ ! -f "$HOME/.cargo/config.toml" ]; then
     echo "Installing \`~/.cargo/config.toml\`"
     cp -v ".cargo/config.toml" "$HOME/.cargo/config.toml"
