@@ -17,6 +17,8 @@ mkdir -v -p "$val"
 
 cp -v -a ".val-macos/." "$val"
 
+cp -v "aliases" "$val/aliases"
+
 cargo run --manifest-path "tools/Cargo.toml" -- install
 
 if [ ! -f "$HOME/.cargo/config.toml" ]; then
