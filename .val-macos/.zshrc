@@ -2,4 +2,6 @@
 
 export PATH="$HOME/.val/bin:$PATH"
 
+alias cd-val="cd ~/.val"
+
 source "$HOME/.val/aliases"
