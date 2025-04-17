@@ -3,3 +3,4 @@ target/
 .ssh
 
 .env
+.DS_Store

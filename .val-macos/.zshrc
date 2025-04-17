@@ -17,4 +17,8 @@ ssh-vps() {(
     ssh -i "${SSH_KEY}" "${SSH_USER}"@"${SSH_ADDR}"
 )}
 
+clean-ds-store() {
+    find . -name ".DS_Store" -type f -print -delete
+}
+
 source "$HOME/.val/aliases"
