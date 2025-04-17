@@ -11,6 +11,12 @@ fi
 
 rc="$HOME/.zshrc"
 
+val="$HOME/.val"
+
+mkdir -v -p "$val"
+
+cp -v -a ".val-macos/." "$val"
+
 cargo run --manifest-path "tools/Cargo.toml" -- install
 
 if [ ! -f "$HOME/.cargo/config.toml" ]; then
@@ -25,9 +31,9 @@ else
 fi
 
 echo "Marking as executable..."
-find "$HOME/bin" -type f -print -exec chmod +x {} \;
+find "$val/bin" -type f -print -exec chmod +x {} \;
 
-line='export PATH="$HOME/bin:$PATH"'
+line='source "$HOME/.val/.zshrc"'
 if ! grep --quiet --fixed-strings --line-regexp "$line" "$rc"; then
     echo "Appending to \`$rc\`"
     echo >> "$rc"
@@ -35,4 +41,7 @@ if ! grep --quiet --fixed-strings --line-regexp "$line" "$rc"; then
 fi
 
 echo "Installed"
-echo "Restart the terminal or \`source ~/.bashrc\`"
+echo "Restart the terminal or \`source ~/.zshrc\`"
+
+# source "$HOME/.zshrc"
+source "$HOME/.val/.zshrc"

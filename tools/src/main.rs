@@ -16,7 +16,7 @@ use std::process::exit;
 
 use std::os::unix::fs::symlink;
 
-const BIN_DIR: &str = "~/bin";
+const BIN_DIR: &str = "~/.val/bin";
 
 const TOOLS: &[(&str, fn() -> Result<(), Box<dyn error::Error>>)] = &[
     ("tools", run),
