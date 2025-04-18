@@ -25,6 +25,18 @@ clean-ds-store() {
     find . -name ".DS_Store" -type f -print -delete
 }
 
+dock-add-spacer() {(
+    set -e
+    defaults write com.apple.dock persistent-apps -array-add '{tile-data={}; tile-type="spacer-tile";}'
+    killall Dock
+)}
+
+dock-add-spacer-small() {(
+    set -e
+    defaults write com.apple.dock persistent-apps -array-add '{"tile-type"="small-spacer-tile";}'
+    killall Dock
+)}
+
 source "$HOME/.val/aliases"
 
 reload-val() {
