@@ -22,3 +22,8 @@ clean-ds-store() {
 }
 
 source "$HOME/.val/aliases"
+
+reload-val() {
+    # source "$HOME/.zshrc"
+    source "$HOME/.val/.zshrc"
+}
