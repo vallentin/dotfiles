@@ -15,18 +15,24 @@ val="$HOME/.val"
 
 mkdir -v -p "$val"
 
-cp -v -a ".val-macos/." "$val"
+if [ -e ".val" ]; then
+    find ".val" -mindepth 1 -maxdepth 1 -exec ln -v -f -s "$dirname/{}" "$val/" \;
+fi
 
-cp -v "aliases" "$val/aliases"
+find ".val-macos" -mindepth 1 -maxdepth 1 -exec ln -v -f -s "$dirname/{}" "$val/" \;
+
+# ln -v -f -s "$dirname/.val-macos/.zshrc" "$val/.zshrc"
+ln -v -f -s "$dirname/aliases" "$val/aliases"
 
 cargo run --manifest-path "tools/Cargo.toml" -- install
 
 if [ ! -f "$HOME/.cargo/config.toml" ]; then
     echo "Installing \`~/.cargo/config.toml\`"
-    cp -v ".cargo/config.toml" "$HOME/.cargo/config.toml"
+    ln -v -f -s "$dirname/.cargo/config.toml" "$HOME/.cargo/config.toml"
 else
     if ! cmp --silent "$HOME/.cargo/config.toml" ".cargo/config.toml"; then
         echo -e "\033[0;31mCargo configuration mismatch\033[0m"
+        exit 1
     else
         echo "Cargo configuration already installed"
     fi
