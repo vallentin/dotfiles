@@ -2,7 +2,11 @@
 
 export PATH="$HOME/.val/bin:$PATH"
 
-alias cd-val="cd ~/.val"
+export VAL_DIR="$HOME/.val"
+export ICLOUD_DIR="$HOME/Library/Mobile Documents/com~apple~CloudDocs"
+
+alias cd-val="cd \"$VAL_DIR\""
+alias cd-icloud-drive="cd \"$ICLOUD_DIR\""
 
 alias c="pbcopy"
 alias v="pbpaste"
