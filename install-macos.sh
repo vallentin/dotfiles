@@ -24,7 +24,7 @@ find ".val-macos" -mindepth 1 -maxdepth 1 -exec ln -v -f -s "$dirname/{}" "$val/
 # ln -v -f -s "$dirname/.val-macos/.zshrc" "$val/.zshrc"
 ln -v -f -s "$dirname/aliases" "$val/aliases"
 
-cargo run --manifest-path "tools/Cargo.toml" -- install
+cargo run --release --manifest-path "tools/Cargo.toml" -- install
 
 if [ ! -f "$HOME/.cargo/config.toml" ]; then
     echo "Installing \`~/.cargo/config.toml\`"
