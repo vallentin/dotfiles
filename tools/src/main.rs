@@ -26,6 +26,11 @@ const TOOLS: &[(&str, fn() -> Result<(), Box<dyn error::Error>>)] = &[
     ("dummy", dummy),
 ];
 
+#[cfg(debug_assertions)]
+const PROFILE: &str = "debug";
+#[cfg(not(debug_assertions))]
+const PROFILE: &str = "release";
+
 fn main() {
     let program = PathBuf::from(std::env::args_os().next().unwrap());
     let program = program.file_stem().unwrap().to_str().unwrap();
@@ -80,7 +85,7 @@ fn list_tools() -> Result<(), Box<dyn error::Error>> {
 fn install() -> Result<(), Box<dyn error::Error>> {
     println!("Installing tools...");
 
-    let exe = std::env::current_exe().unwrap();
+    let exe = exe_path(PROFILE);
 
     let bin_dir = shellexpand::tilde(BIN_DIR);
     let bin_dir = Path::new(bin_dir.as_ref());
@@ -109,8 +114,7 @@ fn install_tool(tool_name: &str, exe: &Path, bin_dir: &Path) -> Result<(), Box<d
 }
 
 fn install_tool_debug(tool_name: &str, bin_dir: &Path) -> Result<(), Box<dyn error::Error>> {
-    let manifest_path = Path::new(env!("CARGO_MANIFEST_DIR")).join("Cargo.toml");
-    let manifest_path = manifest_path.to_str().unwrap();
+    let manifest_path = env!("CARGO_MANIFEST_PATH");
     let manifest_path = shlex::try_quote(manifest_path).unwrap();
 
     let sh = bin_dir.join(format!("_{tool_name}"));
@@ -142,4 +146,13 @@ fn dummy() -> Result<(), Box<dyn error::Error>> {
     println!("DUMMY");
 
     Ok(())
+}
+
+fn exe_path(profile: &str) -> PathBuf {
+    // Not using `std::env::current_exe()` as executing `reinstall-tools`
+    // results in the wrong executable path
+    PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+        .join("target")
+        .join(profile)
+        .join(env!("CARGO_BIN_NAME"))
 }
