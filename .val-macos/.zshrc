@@ -11,6 +11,8 @@ alias cd-icloud-drive="cd \"$ICLOUD_DIR\""
 alias c="pbcopy"
 alias v="pbpaste"
 
+alias GET="curl --location"
+
 ssh-vps() {(
     set -e
 
