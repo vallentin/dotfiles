@@ -83,6 +83,11 @@ git-hard-reset-branch-to-origin() {(
     git reset --hard origin/"$branch"
 )}
 
+git-current-branch() {(
+    set -e
+    git rev-parse --abbrev-ref HEAD
+)}
+
 git-checkout-remote-branch() {(
     set -e
 
