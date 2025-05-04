@@ -13,15 +13,18 @@ alias v="pbpaste"
 
 alias GET="curl --location"
 
-ssh-vps() {(
-    set -e
+alias ssh-vps="ssh vallentin@vallentin.dev"
+alias ssh-vps-root="ssh root@vallentin.dev"
 
-    set -o allexport
-    source "$HOME/.val/.env"
-    set +o allexport
-
-    ssh -i "${SSH_KEY}" "${SSH_USER}"@"${SSH_ADDR}"
-)}
+# ssh-vps() {(
+#     set -e
+#
+#     set -o allexport
+#     source "$HOME/.val/.env"
+#     set +o allexport
+#
+#     ssh -i "${SSH_KEY}" "${SSH_USER}"@"${SSH_ADDR}"
+# )}
 
 clean-ds-store() {
     find . -name ".DS_Store" -type f -print -delete
