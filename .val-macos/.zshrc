@@ -16,6 +16,8 @@ alias GET="curl --location"
 alias ssh-vps="ssh vallentin@vallentin.dev"
 alias ssh-vps-root="ssh root@vallentin.dev"
 
+alias ssh-nas="ssh vallentin@vallentin-nas"
+
 # ssh-vps() {(
 #     set -e
 #
