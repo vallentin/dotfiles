@@ -88,6 +88,18 @@ git-current-branch() {(
     git rev-parse --abbrev-ref HEAD
 )}
 
+git-push-up-to() {(
+    set -e
+
+    if [ -z "$1" ]; then
+        echo "Error: Missing number of commits to go back" >&2
+        return 1
+    fi
+
+    branch=$(git-current-branch)
+    git push origin HEAD~"${1}":"${branch}"
+)}
+
 git-checkout-remote-branch() {(
     set -e
 
