@@ -24,6 +24,9 @@ find ".val-macos" -mindepth 1 -maxdepth 1 -exec ln -v -f -s "$dirname/{}" "$val/
 # ln -v -f -s "$dirname/.val-macos/.zshrc" "$val/.zshrc"
 ln -v -f -s "$dirname/aliases" "$val/aliases"
 
+# Symlink the `dotfiles` dir into `~/.val`
+ln -v -f -s "$dirname" "$val/"
+
 cargo run --release --manifest-path "tools/Cargo.toml" -- install
 
 if [ ! -f "$HOME/.cargo/config.toml" ]; then
