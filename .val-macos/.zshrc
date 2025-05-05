@@ -11,6 +11,8 @@ export ICLOUD_DIR="$HOME/Library/Mobile Documents/com~apple~CloudDocs"
 alias cd-val="cd \"$VAL_DIR\""
 alias cd-icloud-drive="cd \"$ICLOUD_DIR\""
 
+alias edit-dotfiles="code $HOME/.val/dotfiles"
+
 alias clr="clear"
 alias cls="clear"
 
