@@ -1,6 +1,7 @@
-# This file is located in `~/.val` as `.zshrc`
+# This file is installed in `~/.val` as `.zshrc`
 
 source "$HOME/.val/aliases"
+source "$HOME/.val/nas"
 
 export PATH="$HOME/.val/bin:$PATH"
 
@@ -17,8 +18,6 @@ alias GET="curl --location"
 
 alias ssh-vps="ssh vallentin@vallentin.dev"
 alias ssh-vps-root="ssh root@vallentin.dev"
-
-alias ssh-nas="ssh vallentin@vallentin-nas"
 
 # ssh-vps() {(
 #     set -e

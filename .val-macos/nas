@@ -1,0 +1,6 @@
+# This file is installed in `~/.val` as `nas`
+
+alias ssh-nas="ssh vallentin@vallentin-nas"
+
+alias nas-shutdown="ssh-nas -t 'sudo shutdown now'"
+alias nas-reboot="ssh-nas -t 'sudo shutdown --reboot now'"
