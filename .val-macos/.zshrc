@@ -1,5 +1,7 @@
 # This file is located in `~/.val` as `.zshrc`
 
+source "$HOME/.val/aliases"
+
 export PATH="$HOME/.val/bin:$PATH"
 
 export VAL_DIR="$HOME/.val"
@@ -43,8 +45,6 @@ dock-add-spacer-small() {(
     defaults write com.apple.dock persistent-apps -array-add '{"tile-type"="small-spacer-tile";}'
     killall Dock
 )}
-
-source "$HOME/.val/aliases"
 
 reload-val() {
     # source "$HOME/.zshrc"
