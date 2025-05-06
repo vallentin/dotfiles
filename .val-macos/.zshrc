@@ -19,6 +19,12 @@ alias cls="clear"
 alias c="pbcopy"
 alias v="pbpaste"
 
+alias run="cargo run --"
+alias rrun="cargo run --release --"
+
+alias build="cargo build --"
+alias buildr="cargo build --release --"
+
 alias GET="curl --location"
 
 alias ssh-vps="ssh vallentin@vallentin.dev"
