@@ -8,6 +8,8 @@ export PATH="$HOME/.val/bin:$PATH"
 export VAL_DIR="$HOME/.val"
 export ICLOUD_DIR="$HOME/Library/Mobile Documents/com~apple~CloudDocs"
 
+alias cdir='cd "${_%/*}"'
+
 alias cd-val="cd \"$VAL_DIR\""
 alias cd-icloud-drive="cd \"$ICLOUD_DIR\""
 
