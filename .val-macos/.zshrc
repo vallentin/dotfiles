@@ -25,6 +25,14 @@ alias rrun="cargo run --release --"
 alias build="cargo build --"
 alias buildr="cargo build --release --"
 
+run-example() {
+    cargo run --example "$1" -- "${@:2}"
+}
+
+rrun-example() {
+    cargo run --release --example "$1" -- "${@:2}"
+}
+
 alias GET="curl --location"
 
 alias ssh-vps="ssh vallentin@vallentin.dev"
