@@ -27,6 +27,8 @@ alias rrun="cargo run --release --"
 alias build="cargo build --"
 alias buildr="cargo build --release --"
 
+alias doc="cargo doc"
+
 run-example() {
     cargo run --example "$1" -- "${@:2}"
 }
