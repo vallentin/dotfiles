@@ -153,6 +153,7 @@ fn exe_path(profile: &str) -> PathBuf {
     // Not using `std::env::current_exe()` as executing `reinstall-tools`
     // results in the wrong executable path
     PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+        .join("..")
         .join("target")
         .join(profile)
         .join(env!("CARGO_BIN_NAME"))
