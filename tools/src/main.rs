@@ -22,6 +22,7 @@ const BIN_DIR: &str = "~/.val/bin";
 const TOOLS: &[(&str, fn() -> Result<(), Box<dyn error::Error>>)] = &[
     ("tools", run),
     ("reinstall-tools", install),
+    ("list-tools", list_tools),
     ("pretty-json", crate::pretty::json),
     ("dummy", dummy),
 ];
