@@ -78,7 +78,7 @@ fn run() -> Result<(), Box<dyn error::Error>> {
 
     match cmd {
         "list" | "tools" => list_tools(),
-        "install" => install(),
+        "install" | "reinstall-tools" => install(),
         "uninstall" => uninstall(),
         _ => Err(format!("unknown command `{cmd}`").into()),
     }

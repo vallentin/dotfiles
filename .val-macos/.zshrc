@@ -72,3 +72,8 @@ reload-val() {
     # source "$HOME/.zshrc"
     source "$HOME/.val/.zshrc"
 }
+
+reinstall-tools() {
+    manifest_path="$HOME/.val/dotfiles/tools/Cargo.toml"
+    FORCE_TOOL="tools" cargo run --release --manifest-path "${manifest_path}" -- install
+}
