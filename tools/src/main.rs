@@ -10,6 +10,7 @@ mod pretty;
 mod tool;
 mod utils;
 
+use std::env;
 use std::error;
 use std::io::{self, Write};
 use std::path::PathBuf;
@@ -37,8 +38,14 @@ const PROFILE: &str = "debug";
 const PROFILE: &str = "release";
 
 fn main() {
-    let program = PathBuf::from(std::env::args_os().next().unwrap());
+    let program = PathBuf::from(env::args_os().next().unwrap());
     let program = program.file_stem().unwrap().to_str().unwrap();
+
+    let force_tool = env::var("FORCE_TOOL").ok();
+    let program = match &force_tool {
+        Some(tool_name) => tool_name.as_str(),
+        None => program,
+    };
 
     exit({
         let code = match try_main(program) {
@@ -66,7 +73,7 @@ fn try_main(program: &str) -> Result<(), Box<dyn error::Error>> {
 }
 
 fn run() -> Result<(), Box<dyn error::Error>> {
-    let cmd = std::env::args().nth(1);
+    let cmd = env::args().nth(1);
     let cmd = cmd.as_deref().unwrap_or("list");
 
     match cmd {

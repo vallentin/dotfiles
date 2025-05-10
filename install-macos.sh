@@ -27,7 +27,7 @@ ln -v -f -s "$dirname/aliases" "$val/aliases"
 # Symlink the `dotfiles` dir into `~/.val`
 ln -v -f -s "$dirname" "$val/"
 
-cargo run --release -- install
+FORCE_TOOL="tools" cargo run --release -- install
 
 if [ ! -f "$HOME/.cargo/config.toml" ]; then
     echo "Installing \`~/.cargo/config.toml\`"

@@ -75,7 +75,7 @@ impl Tool {
     }
 
     pub fn debug_script(&self) -> String {
-        let tool_name = &self.name;
+        let tool_name = shlex::try_quote(self.name).unwrap();
 
         let manifest_path = env!("CARGO_MANIFEST_PATH");
         let manifest_path = shlex::try_quote(manifest_path).unwrap();
@@ -87,6 +87,7 @@ impl Tool {
         [
             "#!/usr/bin/env bash",
             "set -e",
+            &format!("export FORCE_TOOL={tool_name}"),
             &format!("cargo build --manifest-path {manifest_path}"),
             &format!("# {tool_name} \"$@\""),
             &format!("exec -a \"{tool_name}\" {exe} \"$@\""),
