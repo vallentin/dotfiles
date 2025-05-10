@@ -42,6 +42,8 @@ const PROFILE: &str = "debug";
 const PROFILE: &str = "release";
 
 fn main() {
+    utils::color::init();
+
     let program = PathBuf::from(env::args_os().next().unwrap());
     let program = program.file_stem().unwrap().to_str().unwrap();
 

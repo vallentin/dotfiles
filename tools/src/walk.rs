@@ -6,6 +6,9 @@ use std::fs;
 use std::io;
 use std::path::{Path, PathBuf};
 
+use crate::utils;
+use crate::utils::ansi::{BRIGHT_BLACK, BRIGHT_CYAN, GREEN, MAGENTA, RED, RESET};
+
 #[rustfmt::skip]
 const IGNORED_DIRS: &[&str] = &[
     ".git",
@@ -51,7 +54,7 @@ impl Walker<'_> {
         let read_dir = match fs::read_dir(path) {
             Ok(read_dir) => read_dir,
             Err(err) => {
-                eprintln!("Error: {err}");
+                eprintln!("{RED}Error: {err}{RESET}");
                 return Ok(());
             }
         };
@@ -87,6 +90,15 @@ impl Walker<'_> {
                 false
             });
 
+            let color = match () {
+                _ if is_dir => BRIGHT_CYAN,
+                _ if is_symlink => MAGENTA,
+                _ => match utils::is_executable(&path) {
+                    Ok(executable) if executable => GREEN,
+                    _ => RESET,
+                },
+            };
+
             if is_symlink {
                 let real_path = path.read_link()?;
                 is_dir = real_path.metadata()?.is_dir();
@@ -94,11 +106,11 @@ impl Walker<'_> {
 
             let path_end = if is_dir { "/" } else { "" };
 
-            print!("{}{path_end}", path.display());
+            print!("{color}{}{path_end}{RESET}", path.display());
 
             if is_symlink {
                 let real_path = path.read_link()?;
-                print!(" -> {}{path_end}", real_path.display());
+                print!("{BRIGHT_BLACK} -> {}{path_end}{RESET}", real_path.display());
             }
 
             println!();
