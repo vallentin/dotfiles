@@ -9,6 +9,7 @@
 mod pretty;
 mod tool;
 mod utils;
+mod walk;
 
 use std::env;
 use std::error;
@@ -24,6 +25,9 @@ const TOOLS: &[Tool] = &[
     t("reinstall-tools", install),
     t("uninstall-tools", uninstall),
     t("pretty-json", crate::pretty::json),
+    t("dir", crate::walk::run),
+    t("tree", crate::walk::run),
+    t("walk", crate::walk::run),
     t("dummy", dummy),
 ];
 
