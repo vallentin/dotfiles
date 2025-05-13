@@ -58,6 +58,8 @@ alias git-stash-untracked="git stash --include-untracked"
 alias git-pop-head-keep-staged="git reset --soft HEAD~"
 alias git-hard-reset-file="git checkout HEAD --"
 
+alias git-rebase-root="git rebase -i --root"
+
 alias git-log-follow="git log --follow --"
 
 alias git-diff-word="git diff --color-words"
