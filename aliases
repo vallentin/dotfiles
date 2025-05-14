@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+alias which-shell="ps -p$$"
+
 alias run="rs-run"
 alias doc="rs-doc"
 
