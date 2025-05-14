@@ -143,15 +143,17 @@ git-pull-upstream() {(
 
 git-open-remote() {(
     set -e
-    local url
-    url=$(git remote get-url origin)
+    local url=$(git remote get-url origin)
+    local url=$(gh-ssh-to-https "${url}")
+    echo "Opening: $url"
     open-url "${url}"
 )}
 
 git-open-upstream() {(
     set -e
-    local url
-    url=$(git remote get-url upstream)
+    local url=$(git remote get-url upstream)
+    local url=$(gh-ssh-to-https "${url}")
+    echo "Opening: $url"
     open-url "${url}"
 )}
 
