@@ -37,8 +37,6 @@ rrun-example() {
     cargo run --release --example "$1" -- "${@:2}"
 }
 
-alias GET="curl --location"
-
 alias ssh-vps="ssh vallentin@vallentin.dev"
 alias ssh-vps-root="ssh root@vallentin.dev"
 
@@ -51,6 +49,11 @@ alias ssh-vps-root="ssh root@vallentin.dev"
 #
 #     ssh -i "${SSH_KEY}" "${SSH_USER}"@"${SSH_ADDR}"
 # )}
+
+alias GET="curl --location"
+
+# Used in `git-open-remote` and `git-open-upstream`
+alias open-url="open -u"
 
 clean-ds-store() {
     find . -name ".DS_Store" -type f -print -delete
