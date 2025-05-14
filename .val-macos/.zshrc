@@ -55,6 +55,23 @@ alias GET="curl --location"
 # Used in `git-open-remote` and `git-open-upstream`
 alias open-url="open -u"
 
+# Converts GitHub SSH URL into HTTPS URL, on mismatch
+# then the input is echoed back
+# Examples:
+# - `git@github.com:foo/bar`     -> `https://github.com/foo/bar`
+# - `git@github.com:foo/bar.git` -> `https://github.com/foo/bar`
+gh-ssh-to-https() {
+    local url="$1"
+    local re='^git@github.com:([^/]+)/([^/.]+)(\.git)?$'
+    if [[ "$url" =~ $re ]]; then
+        local user="${match[1]}"
+        local repo="${match[2]}"
+        echo "https://github.com/$user/$repo"
+    else
+        echo $url
+    fi
+}
+
 clean-ds-store() {
     find . -name ".DS_Store" -type f -print -delete
 }
