@@ -209,6 +209,22 @@ git-open-upstream() {(
 #     done
 # )}
 
+# Converts GitHub SSH URL into HTTPS URL, on mismatch
+# then the input is echoed back
+# Examples:
+# - `git@github.com:foo/bar`     -> `https://github.com/foo/bar`
+# - `git@github.com:foo/bar.git` -> `https://github.com/foo/bar`
+gh-ssh-to-https() {
+    local url="$1"
+    if [[ "$url" =~ ^git@github.com:([^/]+)/([^/.]+)(\.git)?$ ]]; then
+        local user="${BASH_REMATCH[1]}"
+        local repo="${BASH_REMATCH[2]}"
+        echo "https://github.com/$user/$repo"
+    else
+        echo $url
+    fi
+}
+
 alias open-url="python -m webbrowser"
 
 alias rs-grep="grep --color=auto --include=\*.rs --exclude-dir={.git,target,node_modules} -rinT . -e"
