@@ -14,6 +14,7 @@ const IGNORED_DIRS: &[&str] = &[
     ".git",
     "target",
     "env",
+    "node_modules",
 ];
 
 pub fn run() -> Result<(), Box<dyn error::Error>> {
