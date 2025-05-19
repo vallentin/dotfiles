@@ -30,11 +30,25 @@ alias buildr="cargo build --release --"
 alias doc="cargo doc"
 
 run-example() {
-    cargo run --example "$1" -- "${@:2}"
+    local example="$1"
+    if [[ -z "${example}" ]]; then
+        filename=$(get-single-file-in-dir "./examples")
+        basename=$(basename "${filename}")
+        example="${basename%.*}"
+    fi
+
+    cargo run --example "$example" -- "${@:2}"
 }
 
 rrun-example() {
-    cargo run --release --example "$1" -- "${@:2}"
+    local example="$1"
+    if [[ -z "${example}" ]]; then
+        filename=$(get-single-file-in-dir "./examples")
+        basename=$(basename "${filename}")
+        example="${basename%.*}"
+    fi
+
+    cargo run --release --example "$example" -- "${@:2}"
 }
 
 alias ssh-vps="ssh vallentin@vallentin.dev"
