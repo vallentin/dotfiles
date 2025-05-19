@@ -72,6 +72,37 @@ gh-ssh-to-https() {
     fi
 }
 
+get-single-file-in-dir() {
+    local dir="${1}"
+    if [[ ! -d "${dir}" ]]; then
+        echo "Error: Not a directory" >&2
+        return 1
+    fi
+
+    local entries=()
+    if compgen -G "$dir/*" > /dev/null 2>&1; then
+        entries=("$dir"/*)
+    fi
+
+    local files=()
+    for f in "${entries[@]}"; do
+        [[ -f "$f" ]] && files+=("$f")
+    done
+
+    if [[ ${#files[@]} -eq 1 ]]; then
+        echo "${files[@]}"
+    elif [[ ${#files[@]} -gt 1 ]]; then
+        echo "Error: Multiple files" >&2
+        for f in "${files[@]}"; do
+            echo "  $f" >&2
+        done
+        return 1
+    else
+        echo "Error: No files found" >&2
+        return 1
+    fi
+}
+
 clean-ds-store() {
     find . -name ".DS_Store" -type f -print -delete
 }
