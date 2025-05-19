@@ -12,6 +12,7 @@ use crate::utils::ansi::{BRIGHT_BLACK, BRIGHT_CYAN, GREEN, MAGENTA, RED, RESET};
 #[rustfmt::skip]
 const IGNORED_DIRS: &[&str] = &[
     ".git",
+    ".build",
     "target",
     "env",
     "node_modules",
