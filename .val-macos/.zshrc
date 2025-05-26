@@ -51,6 +51,17 @@ rrun-example() {
     cargo run --release --example "$example" -- "${@:2}"
 }
 
+unalias rs-grep
+rs-grep() {
+    grep -rin \
+        --include="*.rs" \
+        --exclude-dir=".git" \
+        --exclude-dir="target" \
+        --exclude-dir="node_modules" \
+        . -e \
+        "$@"
+}
+
 alias ssh-vps="ssh vallentin@vallentin.dev"
 alias ssh-vps-root="ssh root@vallentin.dev"
 
