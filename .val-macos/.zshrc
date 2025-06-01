@@ -3,6 +3,9 @@
 source "$HOME/.val/aliases"
 source "$HOME/.val/nas"
 
+setopt no_share_history
+unsetopt share_history
+
 export PATH="$HOME/.val/bin:$PATH"
 
 export VAL_DIR="$HOME/.val"
