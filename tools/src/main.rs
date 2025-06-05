@@ -6,6 +6,7 @@
 )]
 #![warn(clippy::all)]
 
+mod fswait;
 mod pretty;
 mod tool;
 mod utils;
@@ -28,6 +29,7 @@ const TOOLS: &[Tool] = &[
     t("dir", crate::walk::run),
     t("tree", crate::walk::run),
     t("walk", crate::walk::run),
+    t("fswait", crate::fswait::run),
     t("dummy", dummy),
 ];
 
