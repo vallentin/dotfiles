@@ -3,8 +3,10 @@
 source "$HOME/.val/aliases"
 source "$HOME/.val/nas"
 
-setopt no_share_history
-unsetopt share_history
+if [ -n "$ZSH_VERSION" ]; then
+    setopt no_share_history
+    unsetopt share_history
+fi
 
 export PATH="$HOME/.val/bin:$PATH"
 
