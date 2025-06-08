@@ -23,6 +23,12 @@ alias edit-dotfiles="code $HOME/.val/dotfiles"
 alias clr="clear"
 alias cls="clear"
 
+vscode-clear() {
+    if [[ "$TERM_PROGRAM" == "vscode" ]]; then
+        clear
+    fi
+}
+
 alias c="pbcopy"
 alias v="pbpaste"
 
