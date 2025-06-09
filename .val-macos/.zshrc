@@ -18,6 +18,25 @@ alias cdir='cd "${_%/*}"'
 alias cd-val="cd \"$VAL_DIR\""
 alias cd-icloud-drive="cd \"$ICLOUD_DIR\""
 
+ln-to-here() {
+    local force=""
+    if [[ "$1" == "-f" ]]; then
+        force="-f"
+        shift
+    fi
+
+    if [[ -z "$1" ]]; then
+        echo "Usage: ln-to-here [-f] <path>"
+        return 1
+    fi
+
+    # Do not name the var `path`, as `path` is
+    # special in Zsh and related to `$PATH`
+    local p=$(realpath "${1}")
+
+    ln -v $force -s "${p}" "./"
+}
+
 alias edit-dotfiles="code $HOME/.val/dotfiles"
 
 alias clr="clear"
