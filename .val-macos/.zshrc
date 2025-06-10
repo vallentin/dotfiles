@@ -53,6 +53,8 @@ alias v="pbpaste"
 
 alias run="cargo run --"
 alias rrun="cargo run --release --"
+alias runq="cargo run --quiet --"
+alias rrunq="cargo run --quiet --release --"
 
 alias build="cargo build --"
 alias buildr="cargo build --release --"
