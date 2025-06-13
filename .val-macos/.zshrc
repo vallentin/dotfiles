@@ -61,25 +61,25 @@ alias buildr="cargo build --release --"
 
 alias doc="cargo doc"
 
-run-example() {
+rs-get-single-example() {
     local example="$1"
     if [[ -z "${example}" ]]; then
-        filename=$(get-single-file-in-dir "./examples")
+        filename=$(get-single-file-in-dir "./examples") || return 1
         basename=$(basename "${filename}")
         example="${basename%.*}"
     fi
+    echo "$example"
+}
 
-    cargo run --example "$example" -- "${@:2}"
+run-example() {
+    local example
+    example=$(rs-get-single-example "${1}") || return 1
+    cargo run --example "${example}" -- "${@:2}"
 }
 
 rrun-example() {
-    local example="$1"
-    if [[ -z "${example}" ]]; then
-        filename=$(get-single-file-in-dir "./examples")
-        basename=$(basename "${filename}")
-        example="${basename%.*}"
-    fi
-
+    local example
+    example=$(rs-get-single-example "${1}") || return 1
     cargo run --release --example "$example" -- "${@:2}"
 }
 
