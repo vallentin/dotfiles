@@ -83,6 +83,18 @@ rrun-example() {
     cargo run --release --example "$example" -- "${@:2}"
 }
 
+runq-example() {
+    local example
+    example=$(rs-get-single-example "${1}") || return 1
+    cargo run --quiet --example "${example}" -- "${@:2}"
+}
+
+rrunq-example() {
+    local example
+    example=$(rs-get-single-example "${1}") || return 1
+    cargo run --quiet --release --example "$example" -- "${@:2}"
+}
+
 unalias rs-grep
 rs-grep() {
     grep -rin \
