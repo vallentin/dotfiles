@@ -136,15 +136,7 @@ get-single-file-in-dir() {
         return 1
     fi
 
-    local entries=()
-    if compgen -G "$dir/*" > /dev/null 2>&1; then
-        entries=("$dir"/*)
-    fi
-
-    local files=()
-    for f in "${entries[@]}"; do
-        [[ -f "$f" ]] && files+=("$f")
-    done
+    local files=($(find "${dir}" -mindepth 1 -maxdepth 1 -type f -print))
 
     if [[ ${#files[@]} -eq 1 ]]; then
         echo "${files[@]}"
