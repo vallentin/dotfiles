@@ -61,6 +61,22 @@ alias buildr="cargo build --release --"
 
 alias doc="cargo doc"
 
+run-bin() {
+    cargo run --bin "${1}" -- "${@:2}"
+}
+
+rrun-bin() {
+    cargo run --release --bin "${1}" -- "${@:2}"
+}
+
+runq-bin() {
+    cargo run --quiet --bin "${1}" -- "${@:2}"
+}
+
+rrunq-bin() {
+    cargo run --quiet --release --bin "${1}" -- "${@:2}"
+}
+
 rs-get-single-example() {
     local example="$1"
     if [[ -z "${example}" ]]; then
