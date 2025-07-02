@@ -27,6 +27,8 @@ pub struct Args {
     min_depth: usize,
     #[bpaf(long)]
     max_depth: Option<usize>,
+    #[bpaf(long)]
+    strip_root: bool,
     #[bpaf(short, long("path"))]
     paths: Vec<PathBuf>,
 }
@@ -44,7 +46,7 @@ pub fn run() -> Result<(), Box<dyn error::Error>> {
     let walker = Walker::new();
 
     for dir in dirs {
-        walker.walk_dir(dir, args.min_depth, args.max_depth)?;
+        walker.walk_dir(&dir, &dir, args.min_depth, args.max_depth, args.strip_root)?;
     }
 
     Ok(())
@@ -68,14 +70,17 @@ impl Walker<'_> {
     pub fn walk_dir(
         &self,
         path: impl AsRef<Path>,
+        root: impl AsRef<Path>,
         min_depth: usize,
         max_depth: Option<usize>,
+        strip_root: bool,
     ) -> io::Result<()> {
         if let Some(0) = max_depth {
             return Ok(());
         }
 
         let path = path.as_ref();
+        let root = root.as_ref();
 
         let read_dir = match fs::read_dir(path) {
             Ok(read_dir) => read_dir,
@@ -136,11 +141,25 @@ impl Walker<'_> {
             let path_end = if is_dir { "/" } else { "" };
 
             if min_depth == 0 {
-                print!("{color}{}{path_end}{RESET}", path.display());
+                let display_path = strip_root
+                    .then(|| path.strip_prefix(root).ok())
+                    .flatten()
+                    .unwrap_or(&path);
+
+                print!("{color}{}{path_end}{RESET}", display_path.display());
 
                 if is_symlink {
-                    let real_path = path.read_link()?;
-                    print!("{BRIGHT_BLACK} -> {}{path_end}{RESET}", real_path.display());
+                    let path = path.read_link()?;
+
+                    let display_path = strip_root
+                        .then(|| path.strip_prefix(root).ok())
+                        .flatten()
+                        .unwrap_or(&path);
+
+                    print!(
+                        "{BRIGHT_BLACK} -> {}{path_end}{RESET}",
+                        display_path.display()
+                    );
                 }
 
                 println!();
@@ -151,7 +170,7 @@ impl Walker<'_> {
                     continue;
                 }
 
-                self.walk_dir(path, child_min_depth, child_max_depth)?;
+                self.walk_dir(path, root, child_min_depth, child_max_depth, strip_root)?;
             }
         }
         Ok(())
