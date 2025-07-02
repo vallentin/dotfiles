@@ -6,6 +6,8 @@ use std::fs;
 use std::io;
 use std::path::{Path, PathBuf};
 
+use bpaf::Bpaf;
+
 use crate::utils;
 use crate::utils::ansi::{BRIGHT_BLACK, BRIGHT_CYAN, GREEN, MAGENTA, RED, RESET};
 
@@ -18,8 +20,21 @@ const IGNORED_DIRS: &[&str] = &[
     "node_modules",
 ];
 
+#[derive(Bpaf, Clone, Debug)]
+#[bpaf(options)]
+pub struct Args {
+    #[bpaf(long, fallback(0))]
+    min_depth: usize,
+    #[bpaf(long)]
+    max_depth: Option<usize>,
+    #[bpaf(short, long("path"))]
+    paths: Vec<PathBuf>,
+}
+
 pub fn run() -> Result<(), Box<dyn error::Error>> {
-    let mut dirs = env::args().skip(1).map(PathBuf::from).collect::<Vec<_>>();
+    let args = args().run();
+
+    let mut dirs = args.paths.clone();
 
     if dirs.is_empty() {
         let cwd = env::current_dir()?;
@@ -29,7 +44,7 @@ pub fn run() -> Result<(), Box<dyn error::Error>> {
     let walker = Walker::new();
 
     for dir in dirs {
-        walker.walk_dir(dir)?;
+        walker.walk_dir(dir, args.min_depth, args.max_depth)?;
     }
 
     Ok(())
@@ -50,7 +65,16 @@ impl Walker<'static> {
 }
 
 impl Walker<'_> {
-    pub fn walk_dir(&self, path: impl AsRef<Path>) -> io::Result<()> {
+    pub fn walk_dir(
+        &self,
+        path: impl AsRef<Path>,
+        min_depth: usize,
+        max_depth: Option<usize>,
+    ) -> io::Result<()> {
+        if let Some(0) = max_depth {
+            return Ok(());
+        }
+
         let path = path.as_ref();
 
         let read_dir = match fs::read_dir(path) {
@@ -74,6 +98,9 @@ impl Walker<'_> {
 
         entries.sort_by(|a, b| a.0.cmp(&b.0));
         entries.sort_by_key(|(_path, file_type)| Reverse(file_type.is_dir()));
+
+        let child_min_depth = min_depth.saturating_sub(1);
+        let child_max_depth = max_depth.map(|max_depth| max_depth.saturating_sub(1));
 
         for (path, file_type) in entries {
             let is_symlink = file_type.is_symlink();
@@ -108,17 +135,23 @@ impl Walker<'_> {
 
             let path_end = if is_dir { "/" } else { "" };
 
-            print!("{color}{}{path_end}{RESET}", path.display());
+            if min_depth == 0 {
+                print!("{color}{}{path_end}{RESET}", path.display());
 
-            if is_symlink {
-                let real_path = path.read_link()?;
-                print!("{BRIGHT_BLACK} -> {}{path_end}{RESET}", real_path.display());
+                if is_symlink {
+                    let real_path = path.read_link()?;
+                    print!("{BRIGHT_BLACK} -> {}{path_end}{RESET}", real_path.display());
+                }
+
+                println!();
             }
 
-            println!();
-
             if is_dir && !is_path_ignored {
-                self.walk_dir(path)?;
+                if let Some(0) = child_max_depth {
+                    continue;
+                }
+
+                self.walk_dir(path, child_min_depth, child_max_depth)?;
             }
         }
         Ok(())
