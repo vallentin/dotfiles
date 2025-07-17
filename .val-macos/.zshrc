@@ -122,6 +122,16 @@ rs-grep() {
         "$@"
 }
 
+sh-grep() {
+    grep -rin \
+        --include="*.sh" \
+        --exclude-dir=".git" \
+        --exclude-dir="target" \
+        --exclude-dir="node_modules" \
+        . -e \
+        "$@"
+}
+
 alias ssh-vps="ssh vallentin@vallentin.dev"
 alias ssh-vps-root="ssh root@vallentin.dev"
 
