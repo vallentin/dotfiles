@@ -132,6 +132,8 @@ sh-grep() {
         "$@"
 }
 
+alias sqlite="sqlite3"
+
 alias ssh-vps="ssh vallentin@vallentin.dev"
 alias ssh-vps-root="ssh root@vallentin.dev"
 
