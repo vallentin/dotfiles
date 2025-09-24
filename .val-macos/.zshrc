@@ -59,6 +59,9 @@ alias rrunq="cargo run --quiet --release --"
 alias build="cargo build --"
 alias buildr="cargo build --release --"
 
+alias rstest="cargo test --"
+alias rstest+="cargo test -- --nocapture"
+
 alias doc="cargo doc"
 
 run-bin() {
