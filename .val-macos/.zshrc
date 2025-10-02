@@ -114,6 +114,9 @@ rrunq-example() {
     cargo run --quiet --release --example "$example" -- "${@:2}"
 }
 
+alias br="bacon run"
+alias bt="bacon test"
+
 unalias rs-grep
 rs-grep() {
     grep -rin \
