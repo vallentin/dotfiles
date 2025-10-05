@@ -198,6 +198,8 @@ get-single-file-in-dir() {
     fi
 }
 
+alias stay-awake="caffeinate -id"
+
 clean-ds-store() {
     find . -name ".DS_Store" -type f -print -delete
 }
