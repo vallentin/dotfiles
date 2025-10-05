@@ -117,6 +117,42 @@ rrunq-example() {
 alias br="bacon run"
 alias bt="bacon test"
 
+path-rs-add() {(
+    set -euo pipefail
+
+    cargo_toml=$(cargo locate-project --message-format plain)
+    pkg_name=$(cargo metadata --no-deps --format-version 1 \
+        | jq -r '.packages[0].name')
+
+    bin="$HOME/.val/bin/$pkg_name"
+
+    cat << EOF > "${bin}"
+set -euo pipefail
+
+if [[ "\$TERM_PROGRAM" == "vscode" ]]; then
+    clear
+fi
+
+cargo run --quiet --manifest-path "${cargo_toml}" -- "\$@"
+EOF
+    chmod +x "${bin}"
+
+    echo "Installed: $pkg_name"
+)}
+
+path-rs-rm() {(
+    set -euo pipefail
+
+    pkg_name=$(cargo metadata --no-deps --format-version 1 \
+        | jq -r '.packages[0].name')
+
+    bin="$HOME/.val/bin/$pkg_name"
+
+    rm -f "${bin}"
+
+    echo "Uninstalled: $pkg_name"
+)}
+
 unalias rs-grep
 rs-grep() {
     grep -rin \
