@@ -125,6 +125,7 @@ path-rs-add() {(
         | jq -r '.packages[0].name')
 
     bin="$HOME/.val/bin/$pkg_name"
+    _bin="$HOME/.val/bin/_$pkg_name"
 
     cat << EOF > "${bin}"
 set -euo pipefail
@@ -133,9 +134,20 @@ if [[ "\$TERM_PROGRAM" == "vscode" ]]; then
     clear
 fi
 
+cargo run --quiet --release --manifest-path "${cargo_toml}" -- "\$@"
+EOF
+
+    cat << EOF > "${_bin}"
+set -euo pipefail
+
+if [[ "\$TERM_PROGRAM" == "vscode" ]]; then
+    clear
+fi
+
 cargo run --quiet --manifest-path "${cargo_toml}" -- "\$@"
 EOF
-    chmod +x "${bin}"
+
+    chmod +x "${bin}" "${_bin}"
 
     echo "Installed: $pkg_name"
 )}
@@ -147,8 +159,10 @@ path-rs-rm() {(
         | jq -r '.packages[0].name')
 
     bin="$HOME/.val/bin/$pkg_name"
+    _bin="$HOME/.val/bin/_$pkg_name"
 
     rm -f "${bin}"
+    rm -f "${_bin}"
 
     echo "Uninstalled: $pkg_name"
 )}
