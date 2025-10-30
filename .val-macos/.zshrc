@@ -174,8 +174,28 @@ rs-grep() {
         --exclude-dir=".git" \
         --exclude-dir="target" \
         --exclude-dir="node_modules" \
+        --exclude-dir="env" \
         . -e \
         "$@"
+}
+
+rs-grep-extra() {
+    local before="$1"
+    local after="$2"
+
+    [[ "$before" == "-" ]] && before="0"
+    [[ "$after" == "-" ]] && after="0"
+
+    grep -rin \
+        --include="*.rs" \
+        --exclude-dir=".git" \
+        --exclude-dir="target" \
+        --exclude-dir="node_modules" \
+        --exclude-dir="env" \
+        -B "$before" \
+        -A "$after" \
+        . -e \
+        "${@:3}"
 }
 
 sh-grep() {
