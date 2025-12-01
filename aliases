@@ -241,6 +241,18 @@ alias scss-grep="grep --color=auto --include=\*.scss --exclude-dir={.git,target,
 
 alias vscode-edit-dictionary="code $HOME/dictionary.txt"
 
+add-word() {
+    for word in "$@"; do
+        if grep -Fxq -- "$word" "$HOME/dictionary.txt" 2> /dev/null; then
+            echo "Word already added '$word'"
+            continue
+        fi
+
+        echo "Adding word '$word'"
+        echo "$word" >> "$HOME/dictionary.txt"
+    done
+}
+
 append-dictionary() {(
     set -e
 
