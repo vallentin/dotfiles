@@ -77,6 +77,16 @@ git-diff() {(
         ':(exclude)package-lock.json'
 )}
 
+git-show() {(
+    set -e
+
+    git show "$@" -- . \
+        ':(exclude)Cargo.toml' \
+        ':(exclude)Cargo.lock' \
+        ':(exclude)package.json' \
+        ':(exclude)package-lock.json'
+)}
+
 git-hard-reset-branch-to-origin() {(
     set -e
 
