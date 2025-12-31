@@ -43,7 +43,7 @@ alias clr="clear"
 alias cls="clear"
 
 vscode-clear() {
-    if [[ "$TERM_PROGRAM" == "vscode" ]]; then
+    if [[ "${TERM_PROGRAM:-}" == "vscode" ]]; then
         clear
     fi
 }
@@ -130,7 +130,7 @@ path-rs-add() {(
     cat << EOF > "${bin}"
 set -euo pipefail
 
-if [[ "\$TERM_PROGRAM" == "vscode" ]]; then
+if [[ "\${TERM_PROGRAM:-}" == "vscode" ]]; then
     clear
 fi
 
@@ -140,7 +140,7 @@ EOF
     cat << EOF > "${_bin}"
 set -euo pipefail
 
-if [[ "\$TERM_PROGRAM" == "vscode" ]]; then
+if [[ "\${TERM_PROGRAM:-}" == "vscode" ]]; then
     clear
 fi
 
