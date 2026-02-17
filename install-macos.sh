@@ -52,7 +52,7 @@ if ! grep --quiet --fixed-strings --line-regexp "$line" "$rc"; then
 fi
 
 echo "Installed"
-echo "Restart the terminal or \`source ~/.zshrc\`"
+echo "Restart terminal or \`source ~/.zshrc\`"
 
 # source "$HOME/.zshrc"
 source "$HOME/.val/.zshrc"

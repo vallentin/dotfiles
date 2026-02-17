@@ -25,4 +25,4 @@ if ! grep -q "$source" $HOME/.bashrc; then
 fi
 
 echo "Installed"
-echo "Restart the terminal or \`source \$HOME/.bashrc\`"
+echo "Restart terminal or \`source \$HOME/.bashrc\`"
