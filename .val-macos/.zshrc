@@ -18,6 +18,8 @@ alias cdir='cd "${_%/*}"'
 alias cd-val="cd \"$VAL_DIR\""
 alias cd-icloud-drive="cd \"$ICLOUD_DIR\""
 
+alias lll="ls -la"
+
 fzf-dirs() {
     fzf "$@" < <(find . -type d -mindepth 1 -maxdepth 1 | sed 's/^..//' | sort)
 }
