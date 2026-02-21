@@ -9,8 +9,8 @@ if [[ "${TERM_PROGRAM:-}" == "vscode" ]]; then
     clear
 fi
 
-# chmod 755
-rsync -v -rz --delete --prune-empty-dirs --perms --chmod=og=rx --progress \
+# chmod 755 for dirs and 644 for files
+rsync -v -rz -p --chmod=Du=rwx,Dgo=rx,Fu=rw,Fog=r --progress \
     vps/ root@vallentin.dev:/etc/val
 
 for user in root vallentin; do
