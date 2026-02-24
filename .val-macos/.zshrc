@@ -32,6 +32,23 @@ vlc-send() {
     printf "$@" | nc -U /tmp/vlc.sock
 }
 
+fzf-vlc-play() {
+    vlc-send "clear\nloop on\nvolume 0\n"
+
+    # Use `--preview-window=0` to hide the preview window, but do not
+    # use `--preview-window=hidden` as it hides the window, but also
+    # does not execute the command in the background
+
+    find . -type f \( -iname "*.mp4" -o -iname "*.mkv" -o -iname "*.webm" -o -iname "*.mov" \) | \
+        fzf "$@" --preview '
+            FILE={}; \
+            printf "clear\nadd \"$PWD/$FILE\"\nplay\n" | nc -U /tmp/vlc.sock
+        ' \
+        --preview-window=up:4:wrap
+
+    vlc-send "clear\nvolume 256\n"
+}
+
 ln-to-here() {
     local force=""
     if [[ "$1" == "-f" ]]; then
