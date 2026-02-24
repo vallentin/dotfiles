@@ -24,6 +24,14 @@ fzf-dirs() {
     fzf "$@" < <(find . -type d -mindepth 1 -maxdepth 1 | sed 's/^..//' | sort)
 }
 
+# Use `vlc -I rc` and enter `longhelp` to see available commands
+# alias vlc-rc="vlc --extraintf rc --rc-unix /tmp/vlc.sock"
+alias vlc-rc="vlc --extraintf oldrc --rc-unix /tmp/vlc.sock"
+
+vlc-send() {
+    printf "$@" | nc -U /tmp/vlc.sock
+}
+
 ln-to-here() {
     local force=""
     if [[ "$1" == "-f" ]]; then
