@@ -1,5 +1,8 @@
 # This file is installed in `~/.val` as `.zshrc`
 
+autoload -Uz compinit
+compinit
+
 source "$HOME/.val/aliases"
 source "$HOME/.val/nas"
 
@@ -20,6 +23,26 @@ cd+() {
         cd "$dir"
     done
 }
+
+# FIXME: Tab completion stop working for more than 2 args
+_cd+() {
+    local -a parts
+    local base
+
+    parts=("${(Q)words[2, CURRENT-1]}")
+    base="${(j:/:)parts}"
+    base="${base/#\~/$HOME}"
+
+    if [[ -z "$base" ]]; then
+        base="."
+    fi
+
+    base="${base:a}"
+
+    _files -W "$base" -/
+}
+
+compdef _cd+ cd+
 
 alias cd-val="cd+ \"$VAL_DIR\""
 alias cd-icloud-drive="cd+ \"$ICLOUD_DIR\""
