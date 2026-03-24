@@ -15,8 +15,14 @@ export ICLOUD_DIR="$HOME/Library/Mobile Documents/com~apple~CloudDocs"
 
 alias cdir='cd "${_%/*}"'
 
-alias cd-val="cd \"$VAL_DIR\""
-alias cd-icloud-drive="cd \"$ICLOUD_DIR\""
+cd+() {
+    for dir in "$@"; do
+        cd "$dir"
+    done
+}
+
+alias cd-val="cd+ \"$VAL_DIR\""
+alias cd-icloud-drive="cd+ \"$ICLOUD_DIR\""
 
 alias lll="ls -la"
 
