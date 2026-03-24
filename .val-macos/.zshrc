@@ -24,6 +24,9 @@ cd+() {
 alias cd-val="cd+ \"$VAL_DIR\""
 alias cd-icloud-drive="cd+ \"$ICLOUD_DIR\""
 
+alias cd-desktop="cd+ \"$HOME/Desktop\""
+alias cd-projects="cd+ \"$HOME/Desktop/Projects\""
+
 alias lll="ls -la"
 
 fzf-dirs() {
