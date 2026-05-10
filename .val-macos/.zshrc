@@ -114,6 +114,14 @@ vscode-clear() {
 alias c="pbcopy"
 alias v="pbpaste"
 
+loop() {
+    while true; do
+        # "$@" || break
+        eval "$(printf '%q ' "$@")" || break
+        sleep 1
+    done
+}
+
 alias run="cargo run --"
 alias rrun="cargo run --release --"
 alias runq="cargo run --quiet --"
