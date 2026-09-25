@@ -13,6 +13,9 @@ rc="$HOME/.zshrc"
 
 val="$HOME/.val"
 
+# Replace all CRLF with LF
+find "bin" -type f -exec dos2unix {} +
+
 find . -name ".DS_Store" -type f -print -delete
 
 mkdir -v -p "$val"
