@@ -13,6 +13,8 @@ rc="$HOME/.zshrc"
 
 val="$HOME/.val"
 
+find . -name ".DS_Store" -type f -print -delete
+
 mkdir -v -p "$val"
 
 if [ -e ".val" ]; then
@@ -28,6 +30,8 @@ ln -v -f -s "$dirname/aliases" "$val/aliases"
 ln -v -f -s "$dirname" "$val/"
 
 FORCE_TOOL="tools" cargo run --release -- install
+
+find "$val" -name ".DS_Store" -type f -print -delete
 
 if [ ! -f "$HOME/.cargo/config.toml" ]; then
     echo "Installing \`~/.cargo/config.toml\`"
