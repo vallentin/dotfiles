@@ -12,6 +12,7 @@ if [ -n "$ZSH_VERSION" ]; then
 fi
 
 export PATH="$HOME/.val/bin:$PATH"
+export PATH="$HOME/.val/dotfiles/bin:$PATH"
 
 export VAL_DIR="$HOME/.val"
 export ICLOUD_DIR="$HOME/Library/Mobile Documents/com~apple~CloudDocs"

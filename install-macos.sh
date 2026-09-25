@@ -50,6 +50,7 @@ fi
 
 echo "Marking as executable..."
 find "$val/bin" -type f -print -exec chmod +x {} \;
+find "$val/dotfiles/bin" -type f -print -exec chmod +x {} \;
 
 line='source "$HOME/.val/.zshrc"'
 if ! grep --quiet --fixed-strings --line-regexp "$line" "$rc"; then
