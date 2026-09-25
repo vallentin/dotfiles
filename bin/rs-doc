@@ -36,5 +36,4 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-rs-touch
 cargo doc $no_deps $priv $open -- "$@"

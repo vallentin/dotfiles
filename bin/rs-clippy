@@ -3,5 +3,4 @@
 set -e
 vscode-clear
 
-rs-touch
 cargo clippy "$@"

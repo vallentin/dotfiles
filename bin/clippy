@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 set -e
-# vscode-clear
+vscode-clear
 
 lints=()
 
@@ -55,4 +55,4 @@ if [ ! -z "$features" ]; then
     features="--features $features"
 fi
 
-rs-clippy --all-targets $features -- $lints
+cargo clippy --all-targets $features -- $lints
