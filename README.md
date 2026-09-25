@@ -2,6 +2,15 @@
 
 Just some dotfiles and related stuff that I use.
 
+## Install
+
+### Mac
+
+```bash
+brew install dos2unix
+bash install-macros.sh
+```
+
 ## References
 
 - [Disable bell](https://stackoverflow.com/questions/36724209/disable-beep-of-linux-bash-on-windows-10)
