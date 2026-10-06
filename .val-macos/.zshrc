@@ -115,6 +115,12 @@ vscode-clear() {
 alias c="pbcopy"
 alias v="pbpaste"
 
+# alias now="date -Iseconds"
+# alias now="date +'%Y-%m-%d %H:%M:%S %z'"
+alias now="date +'%Y-%m-%d %H:%M:%S'"
+# alias now-utc="date -Iseconds -u"
+alias now-utc="date -u +'%Y-%m-%d %H:%M:%S'"
+
 loop() {
     while true; do
         # "$@" || break
