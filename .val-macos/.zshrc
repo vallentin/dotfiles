@@ -121,6 +121,27 @@ alias now="date +'%Y-%m-%d %H:%M:%S'"
 # alias now-utc="date -Iseconds -u"
 alias now-utc="date -u +'%Y-%m-%d %H:%M:%S'"
 
+std() {
+    local query="$*"
+    local encoded
+    encoded=$(printf '%s' "$query" | jq -sRr @uri)
+    open -u "https://doc.rust-lang.org/std/?search=${encoded}"
+}
+
+docs() {
+    local query="$*"
+    local encoded
+    encoded=$(printf '%s' "$query" | jq -sRr @uri)
+    open -u "https://docs.rs/releases/search?query=${encoded}"
+}
+
+crate() {
+    local query="$*"
+    local encoded
+    encoded=$(printf '%s' "$query" | jq -sRr @uri)
+    open -u "https://crates.io/search?q=${encoded}"
+}
+
 loop() {
     while true; do
         # "$@" || break
